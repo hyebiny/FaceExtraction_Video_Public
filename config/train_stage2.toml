@@ -1,0 +1,53 @@
+# Refer to utils/config.py for definition and options.
+
+version = "baseline"
+dist = true
+world_size = 4
+
+[model]
+batch_size = 8
+mask_channel = 0
+model_variant = 'mobilenetv3'
+
+[train]
+val_epoch = 1
+lr_backbone = 1e-4
+lr_aspp = 2e-4
+lr_decoder = 2e-4
+lr_refiner = 0
+beta1 = 0.5
+beta2 = 0.999
+rec_weight = 1.0
+lap_weight = 1.0
+com_weight = 1.0
+ckpt = "/home/jhb/base/RobustVideoMatting/logs/stage1/230928_004215/checkpoints/epoch-19.pth"
+ckpt_dir = "checkpoint/stage1"
+epoch_start = 20
+epoch_end = 24
+train_hr = false
+
+
+[data]
+name = "occmatte"
+workers = 8
+occ_root = "/home/jhb/dataset/source/occluders"
+fg_dir = "/home/jhb/dataset/source/occluders"
+bg_txt = "/home/jhb/dataset/source/face/CelebAMask-HQ-WO-"
+rand_dir = "/home/jhb/dataset/FM_dataset/CelebA-HQ-WO-"
+folder_list = ["sim", "rand", "hiu", "am2k"] # celeba rand sim sim2 11k hiu
+sim_list1 = [] # "spider_web", "net"] # , "water_spray", "net", "water_drop"] # "spider_web", "water_spray", "net", "water_drop"] # ["spider_web"] # for not use
+sim_list2 = [] # ["water_spray", "net", "water_drop"] # for crop and resize
+num_sample = 1
+occlusion = 0.25
+resolution_lr = 512
+resolution_hr = 2048
+seq_length_lr = 4
+seq_length_hr = 4
+
+
+[log]
+experiment_root = "./logs/stage1"
+tensorboard_step = 100
+tensorboard_image_step = 1000
+logging_step = 10
+checkpoint_step = 10000
